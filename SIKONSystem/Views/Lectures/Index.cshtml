@@ -1,0 +1,156 @@
+﻿@model SIKONSystem.DisplayModel.LectureDisplayModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Oversigt af oplæg</h1>
+
+<p>
+    <a asp-action="Create">Opret oplæg</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LectureDisplay.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LectureDisplay.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LectureDisplay.Speaker)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LectureDisplay.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LectureDisplay.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LectureDisplay.TimeFrame)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LectureDisplay.Spaces)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LectureDisplay.Room)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.LectureDisplayList) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Speaker)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeFrame)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Spaces)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Room.Name)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.LectureId">Detaljer</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@*<div class="form-group">
+    <label class="control-label">Bloklængde i minutter </label>
+    <select asp-for="" class ="form-control" asp-items="ViewBag.RoomId"></select>
+</div>
+<div class="form-group">*@
+
+
+@* Tidsplan: med dynamisk rendering *@
+<table class="table table-bordered">
+    
+    
+    @for (int iTime = 0; iTime < Model.NoOfTimeBlocks+1; iTime++)
+     {
+        if (iTime == 0)
+        {
+                for (int iRoom = 0; iRoom < Model.NoOfRooms; iRoom++)
+                {
+                    Model.Graphic = Model.Graphic + $"<th>{Model.RoomDisplayList[iRoom].Name}</th>";
+                }
+                <thead><tr><th></th>@Html.Raw(Model.Graphic)</tr></thead>
+        }
+
+        else
+        {//noOfRooms har +1 fordi jeg bruger index 0 tid horisontalt til tidsangivelse
+            for (int iRoom = 0; iRoom < Model.NoOfRooms+1; iRoom++)
+            {
+                int fieldWritten = 0;
+                if (iRoom == 0)
+                {
+                    //skriv tidsblok interval på første kolonne af hver række
+                    /*linestring*/
+                    Model.Graphic = $"<th>Blok {iTime}</th>";
+                }
+                else
+                {        //errorprevetion room existerer ikke
+                    //iRoom -1 er igen fordi index 0 bruges til tidsangivelse
+                    foreach (var lecture in Model.LectureDisplayList)
+                    {   //Tjek om Lecture allerede er tilføjet i tabellen
+                        if (/*linestring*/Model.Graphic.Contains(lecture.Title))
+                        { }
+
+                        else
+                        {
+                            //tjek rigtigt rum
+                            if (lecture.Room.Name == Model.RoomDisplayList[iRoom - 1].Name)
+                            {
+                                //placeholder til tidsadskillelse 
+                                string blockStartTime=$"{iTime+7}";
+                                string mystr = lecture.StartTime.Hour.ToString();
+                                //tjek om tidspunkt passer (placeholder)
+                                if (lecture.StartTime.Hour.ToString()== blockStartTime)
+                                {
+
+                                    //indsæt lecture i tabellen
+                                    fieldWritten = 1;
+
+                                    Model.Graphic = Model.Graphic + $"<td>{lecture.Title}</td>";
+
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    //Tjek om feltet skal være tomt
+                    if (fieldWritten == 0)
+                    {//indsæt tomt felt i tabllen og hop derefter tilbage til iTime loopet
+                        Model.Graphic = Model.Graphic + "<td></td>";
+                        fieldWritten = 1;
+                    }
+                }
+            }
+            <tbody><tr>
+               @Html.Raw(Model.Graphic) 
+            </tr></tbody>
+        }
+    }
+    
+</table>

@@ -1,0 +1,36 @@
+﻿@model SIKONSystem.Models.Booking
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <a asp-action="Index">Tilbage til oversigten</a>
+</div>
+
+<h1>Rediger</h1>
+
+<h4>Booking</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BookingId" />
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LectureId" class="control-label"></label>
+                <select asp-for="LectureId" class="form-control" asp-items="ViewBag.LectureId"></select>
+                <span asp-validation-for="LectureId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Gem" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

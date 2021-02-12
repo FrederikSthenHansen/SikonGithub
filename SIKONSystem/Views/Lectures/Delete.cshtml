@@ -1,0 +1,72 @@
+﻿@model SIKONSystem.Models.Lecture
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div>
+        <a asp-action="Index">Tilbage til oversigten</a>
+    </div>
+
+<h1>Slet</h1>
+
+<div>
+    <h4>Oplægget vil blive slettet fra listen af tilgængelige oplæg.</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Speaker)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Speaker)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TimeFrame)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TimeFrame)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Spaces)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Spaces)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Room)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Room.Name)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="LectureId" />
+        <input type="submit" value="Slet" class="btn btn-danger" onclick="return confirm('Du er ved at slette alt data for @Model.Title.\n\nTryk OK for at fortsætte. Tryk Cancel for at fortryde.')" />
+    </form>
+</div>

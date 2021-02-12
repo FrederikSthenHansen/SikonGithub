@@ -1,0 +1,59 @@
+﻿@model SIKONSystem.Models.User
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div>
+        <a asp-action="Index">Tilbage til oversigten</a>
+    </div>
+
+    <h1>Opret Bruger</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telephone" class="control-label"></label>
+                <input asp-for="Telephone" class="form-control" />
+                <span asp-validation-for="Telephone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zipcode" class="control-label"></label>
+                <input asp-for="Zipcode" class="form-control" />
+                <span asp-validation-for="Zipcode" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="AddAutismInfo" /> @Html.DisplayNameFor(model => model.AddAutismInfo)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Opret" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

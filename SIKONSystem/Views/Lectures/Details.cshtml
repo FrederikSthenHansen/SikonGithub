@@ -1,0 +1,130 @@
+﻿@model SIKONSystem.DisplayModel.LectureDetailDM
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* Brugervalg *@
+@*<div class="form-group">
+        <label asp-for="UserId" class="control-label"></label>
+        <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+    </div>*@
+
+<div>
+    <a asp-action="Index">Tilbage til oversigten</a>
+</div>
+
+<h1>Detaljer</h1>
+
+<div>
+    <h4>@Html.DisplayNameFor(model => model.Lecture.Title)</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lecture.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lecture.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lecture.StartTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lecture.StartTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lecture.Speaker)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lecture.Speaker)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lecture.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lecture.Category.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lecture.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lecture.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lecture.TimeFrame)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lecture.TimeFrame)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lecture.Spaces)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lecture.Spaces)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lecture.Room)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lecture.Room.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Lecture.LectureId">Rediger</a> |
+    <a asp-action="Delete" asp-route-id="@Model.Lecture.LectureId">Slet</a>
+    @*<input type="submit" value="Tilmeld" class="btn btn-primary" asp-controller="Bookings" asp-action="Create"/>
+        <a asp-action="Create" asp-controller="Bookings" asp-route-id="@Model.LectureId">Tilmeld</a>*@
+</div>
+
+@*<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" asp-controller="Bookings">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="LectureId" class="control-label"></label>
+                <select asp-for="LectureId" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Opret" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>*@
+
+<h1>Oversigt af bookings</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking.Lecture)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Bookings)
+        {
+            if (item.WaitList == 0 && item.LectureId == Model.Lecture.LectureId)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lecture.Title)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

@@ -1,0 +1,36 @@
+﻿@model SIKONSystem.Models.Room
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <a asp-action="Index">Tilbage til oversigten</a>
+</div>
+
+<h1>Slet</h1>
+
+<div>
+    <h4>Lokalet vil blive slettet fra listen af tilgængelige lokaler.</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Capacity)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Capacity)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="RoomId" />
+        <input type="submit" value="Slet" class="btn btn-danger" onclick="return confirm('Du er ved at slette alt data for @Model.Name.\n\nTryk OK for at fortsætte. Tryk Cancel for at fortryde.')" />
+    </form>
+</div>
